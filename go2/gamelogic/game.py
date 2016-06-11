@@ -1,4 +1,4 @@
-from board import Board, Color
+from go2.gamelogic.board import Board, Color
 from copy import copy
 class Game:
     def __init__(self, size):
