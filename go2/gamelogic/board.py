@@ -45,7 +45,7 @@ class Board:
         yield (position[0], position[1] + 1)
 
     def is_in_board(self, position):
-        return position[0] >= 0 or position[0] < self.size or position[1] >= 0 or position[1] < self.size
+        return position[0] >= 0 and position[0] < self.size and position[1] >= 0 and position[1] < self.size
 
     def count_color(self, color):
         return self.state.count(Color.BLACK)
@@ -68,8 +68,10 @@ class Board:
 
     def has_freedom(self, position):
         for group_position in self.get_group(position):
-            for neighbour_position in self.get_neighbours(group_position):
-                if self.get_color(neighbour_position) == Color.NEUTRAL:
+            for neighbour in self.get_neighbours(group_position):
+                if not self.is_in_board(neighbour):
+                    continue
+                if self.get_color(neighbour) == Color.NEUTRAL:
                     return True
         return False
 
@@ -83,6 +85,7 @@ class Board:
         return RemovalResult(next_board, len(removed))
 
     def get_color(self, position):
+        print(position)
         return self.state[self.calculate_index(position)]
 
     def clone(self):
