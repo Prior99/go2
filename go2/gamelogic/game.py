@@ -8,6 +8,8 @@ class Game:
         next_board = self.current_board.set_color(position, color)
         removed_amount = 0
         for neighbour in next_board.get_neighbours(position):
+            if not next_board.is_in_board(neighbour):
+                continue
             removal_result = next_board.remove_tokens(neighbour)
             next_board = removal_result.board
             removed_amount += removal_result.amount
@@ -15,6 +17,11 @@ class Game:
             self.history.append(next_board)
             return True
         return False
+
+    def from_board(board):
+        game = Game(board.size)
+        game.history[0] = board
+        return game
 
     @property
     def current_board(self):
