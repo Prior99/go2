@@ -1,6 +1,7 @@
 from enum import Enum
 from copy import deepcopy
 from collections import namedtuple
+import math
 
 RemovalResult = namedtuple('RemovalResult', ['board', 'amount'])
 
@@ -13,6 +14,11 @@ class Board:
     def __init__(self, size):
         self.state = [Color.NEUTRAL]*(size**2)
         self.size = size
+
+    def from_list(list):
+        new_board = Board(int(math.sqrt(len(list))))
+        new_board.state = list
+        return new_board
 
     def from_board(original_board):
         new_board = deepcopy(original_board)
@@ -41,7 +47,12 @@ class Board:
     def is_in_board(self, position):
         return position[0] >= 0 or position[0] < self.size or position[1] >= 0 or position[1] < self.size
 
-    def get_group(self, position, color=None, visited=[]):
+    def count_color(self, color):
+        return self.state.count(Color.BLACK)
+
+    def get_group(self, position, color=None, visited=None):
+        if visited is None:
+            visited = []
         if color is None:
             color = self.get_color(position)
         if position in visited:
@@ -52,8 +63,8 @@ class Board:
         my_color = self.get_color(position)
         if my_color == color:
             yield position
-            for position in self.get_neighbours(position):
-                yield from self.get_group(position, color, visited)
+            for neighbour in self.get_neighbours(position):
+                yield from self.get_group(neighbour, color, visited)
 
     def has_freedom(self, position):
         for group_position in self.get_group(position):
@@ -68,7 +79,7 @@ class Board:
         next_board = self.clone()
         removed = list(next_board.get_group(position))
         for position in removed:
-            next_board.state[calculate_index(position)] = Color.NEUTRAL
+            next_board.state[self.calculate_index(position)] = Color.NEUTRAL
         return RemovalResult(next_board, len(removed))
 
     def get_color(self, position):
