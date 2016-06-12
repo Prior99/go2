@@ -1,7 +1,18 @@
-from go2.gamelogic.game import Game
-from go2.gamelogic.board import Color
+import asyncio
+from autobahn.asyncio.websocket import WebSocketServerFactory
 
-game = Game(9)
+factory = WebSocketServerFactory()
+factory.protocol = Go2Protocol
 
-game.place_token((3, 3), Color.BLACK)
+loop = asyncio.get_event_loop()
+accept = loop.create_server(factory, '::1', 2338)
+server = loop.run_until_complete(accept)
+
+try:
+    loop.run_forever()
+except KeyboardInterrupt:
+    pass
+finally
+    server.close()
+    loop.close()
 
