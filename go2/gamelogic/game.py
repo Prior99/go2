@@ -25,7 +25,7 @@ class Game:
     def turn_made(self):
         if self.current_color == Color.BLACK:
             self.current_color = Color.WHITE
-        else
+        else:
             self.current_color = Color.BLACK
 
     def from_board(board):
