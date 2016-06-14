@@ -6,7 +6,7 @@ factory = WebSocketServerFactory()
 factory.protocol = Go2Protocol
 
 loop = asyncio.get_event_loop()
-accept = loop.create_server(factory, '::1', 2338)
+accept = loop.create_server(factory, '0.0.0.0', 2338)
 server = loop.run_until_complete(accept)
 
 try:
