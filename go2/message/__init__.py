@@ -1,9 +1,9 @@
 from marshmallow import Schema, fields, post_load
 from enum import Enum
-from message.create_game import CreateGameSchema
-from message.register import RegisterSchema
-from message.subscribe_game import SubscribeGameSchema
-from message.turn import TurnSchema
+from go2.message.create_game import CreateGameSchema
+from go2.message.register import RegisterSchema
+from go2.message.subscribe_game import SubscribeGameSchema
+from go2.message.turn import TurnSchema
 
 class MessageType:
     CREATE_GAME = 'creategame'
