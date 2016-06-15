@@ -1,15 +1,15 @@
 from marshmallow import Schema, fields, post_load
 from enum import Enum
-from message.create_game import MsgCreateGame
-from message.register import MsgRegister
-from message.subscribe_game import MsgSubscribeGame
-from message.turn import MsgTurn
+from message.create_game import CreateGameSchema
+from message.register import RegisterSchema
+from message.subscribe_game import SubscribeGameSchema
+from message.turn import TurnSchema
 
-class MessageType(Enum):
-    CREATE_GAME = 'creategame',
-    REGISTER = 'register',
-    SUBSCRIBE_GAME = 'subscribe',
-    TURN = 'turn',
+class MessageType:
+    CREATE_GAME = 'creategame'
+    REGISTER = 'register'
+    SUBSCRIBE_GAME = 'subscribe'
+    TURN = 'turn'
     USERS = 'users'
 
 class Message:
@@ -24,12 +24,12 @@ class MessageSchema(Schema):
     @post_load
     def extract(self, data):
         type = data['type']
-        schema = (MsgCreateGame() if type == MessageType.CREATE_GAME \
-            else MsgRegister() if type == MessageType.REGISTER \
-            else MsgSubscribeGame() if type == MessageType.SUBSCRIBE_GAME \
-            else MsgTurn() if type == MessageType.SUBSCRIBE_GAME \
+        schema = (CreateGameSchema() if type == MessageType.CREATE_GAME \
+            else RegisterSchema() if type == MessageType.REGISTER \
+            else SubscribeGameSchema() if type == MessageType.SUBSCRIBE_GAME \
+            else TurnSchema() if type == MessageType.SUBSCRIBE_GAME \
             else None)
         if not schema is None:
-            schema.load(self.payload)
-            return Message(type, schema.data)
+            payload = schema.load(data['payload'])
+            return Message(type, payload.data)
         return Message(type)

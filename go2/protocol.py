@@ -4,6 +4,9 @@ from event_emitter import EventEmitter
 import json
 
 class Go2Protocol(WebSocketServerProtocol, EventEmitter):
+    def onConnect(self):
+        print('New connection')
+
     def onMessage(self, payload, isBinary):
         if isBinary:
             self.disconnect()
@@ -11,5 +14,7 @@ class Go2Protocol(WebSocketServerProtocol, EventEmitter):
         print(payload)
         message = MessageSchema().load(json.loads(payload.decode('utf8'))).data
         if message.type == MessageType.REGISTER:
-            self.emit('register', message.data)
+            register = message.data
+            print('New user registered with username ', register.username)
+            self.emit('register')
 
