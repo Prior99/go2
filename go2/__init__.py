@@ -1,14 +1,14 @@
 import websockets
-from go2.game_manager import GameManager
-from go2.player_manager import PlayerManager
 from go2.client import Client
-
-game_manager = GameManager()
-player_manager = PlayerManager()
+from go2.player import Player
+from go2.database import session
 
 clients = []
 
 def close():
+    print('Flushing database...')
+    session.flush()
+    session.close()
     for client in clients[:]:
         stop_client(client)
 
@@ -18,9 +18,15 @@ async def connected(websocket, path):
     print('Currently', len(clients), 'clients connected')
     await client.loop()
 
+def add_player(name):
+    print('New player with name', name, 'registered')
+    player = Player(name=name)
+    session.add(player)
+    session.commit()
+
 def start_client(client):
     print('New connection from ', client.socket.remote_address[0])
-    client.on('register', player_manager.register)
+    client.on('register', add_player)
     client.on('close', lambda: stop_client(client))
     clients.append(client)
 

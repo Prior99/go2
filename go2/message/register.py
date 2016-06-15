@@ -1,12 +1,12 @@
 from marshmallow import Schema, fields, post_load
 
 class MsgRegister:
-    def __init__(self, username):
-        self.username = username
+    def __init__(self, name):
+        self.name = name
 
 class RegisterSchema(Schema):
-    username = fields.Str()
+    name = fields.Str()
 
     @post_load
     def extract(self, data):
-        return MsgRegister(data['username'])
+        return MsgRegister(data['name'])

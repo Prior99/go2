@@ -1,5 +1,7 @@
-from marshmallow import Schema, fields
+from sqlalchemy import Column, Integer, String
+from go2.database import Base
 
-class Player:
-    def __init__(self, username):
-        self.username = username
+class Player(Base):
+    __tablename__ = 'player'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)

@@ -1,5 +1,3 @@
-from go2.game_manager import GameManager
-from go2.player_manager import PlayerManager
 from go2.message import MessageType, MessageSchema
 from event_emitter import EventEmitter
 import json
@@ -18,10 +16,9 @@ class Client(EventEmitter):
             try:
                 data = await self.socket.recv()
                 message = MessageSchema().load(json.loads(data)).data
-                print('Received', message.type, MessageType.REGISTER)
                 if message.type == MessageType.REGISTER:
                     register = message.data
-                    self.emit('register', register.username)
+                    self.emit('register', register.name)
             except:
                 break
         self.socket.close()
