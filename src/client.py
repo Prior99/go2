@@ -1,4 +1,4 @@
-from go2.message import MessageType, MessageSchema
+from messages.message import MessageType, MessageSchema
 from event_emitter import EventEmitter
 import json
 

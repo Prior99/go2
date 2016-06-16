@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from go2.database import Base
+from database import Base
 
 class Player(Base):
     __tablename__ = 'player'

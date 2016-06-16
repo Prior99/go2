@@ -1,13 +1,11 @@
 import websockets
-from go2.client import Client
-from go2.player import Player
-from go2.database import session
+from client import Client
+from database import session
+from database.player import Player
 
 clients = []
 
 def close():
-    print('Flushing database...')
-    session.flush()
     session.close()
     for client in clients[:]:
         stop_client(client)
