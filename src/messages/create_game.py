@@ -1,12 +1,4 @@
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
 
 class MsgCreateGame:
-    def __init__(self, size):
-        self.size = size
-
-class CreateGameSchema:
     size = fields.Integer()
-
-    @post_load
-    def extract(self, data):
-        return MsgCreateGame(data['size'])

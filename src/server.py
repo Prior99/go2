@@ -2,6 +2,7 @@ import websockets
 from client import Client
 from database import session
 from database.player import Player
+from sqlalchemy import exc
 
 clients = []
 
@@ -16,15 +17,20 @@ async def connected(websocket, path):
     print('Currently', len(clients), 'clients connected')
     await client.loop()
 
-def add_player(name):
-    print('New player with name', name, 'registered')
-    player = Player(name=name)
-    session.add(player)
-    session.commit()
+def add_player(name, secret):
+    try:
+        player = Player(name=name, secret=secret)
+        session.add(player)
+        session.commit()
+        print('New player with name', name, 'registered')
+        return True
+    except exc.IntegrityError:
+        session.rollback()
+        return False
 
 def start_client(client):
     print('New connection from ', client.socket.remote_address[0])
-    client.on('register', add_player)
+    client.on('register', lambda name, secret, callback: callback(add_player(name, secret)))
     client.on('close', lambda: stop_client(client))
     clients.append(client)
 

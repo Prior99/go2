@@ -1,12 +1,4 @@
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields
 
-class MsgSubscribeGame:
-    def __init__(self, game):
-        self.game = game
-
-class SubscribeGameSchema(Schema):
+class MsgSubscribeGame(Schema):
     game = fields.Integer()
-
-    @post_load
-    def extract(self, data):
-        return MsgSubscribeGame(data['game'])
