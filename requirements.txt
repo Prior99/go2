@@ -1,8 +1,10 @@
-autobahn==0.14.1
 marshmallow==2.7.3
 py==1.4.31
+PyEventEmitter==1.0.3
 pytest==2.9.2
 pytest-sugar==0.7.1
 six==1.10.0
+SQLAlchemy==1.0.13
 termcolor==1.1.0
 txaio==2.5.1
+websockets==3.1
