@@ -1,4 +1,4 @@
-from gamelogic.board import Board, Color
+from src.gamelogic.board import Board, Color
 import pytest
 
 @pytest.fixture
@@ -33,3 +33,6 @@ def test_remove_tokens(mock_board):
     assert amount == 9
     assert board.count_color(Color.BLACK) == 0
 
+def test_encode(mock_board):
+    board = mock_board
+    assert board.encode() == 'FKiVpGlYqA'

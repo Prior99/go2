@@ -5,6 +5,8 @@ import math
 
 RemovalResult = namedtuple('RemovalResult', ['board', 'amount'])
 
+base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
 class Color(Enum):
     NEUTRAL = 0
     BLACK = 1
@@ -90,6 +92,20 @@ class Board:
 
     def clone(self):
         return Board.from_board(self)
+
+    def encode(self):
+        string = ""
+        string = string + base64[self.size]
+        for i in range(0, len(self.state), 3):
+            code = 0
+            for j in range(0, 3):
+                code = code << 2
+                if j + i < len(self.state):
+                    code = code | self.state[i + j].value
+                else:
+                    break
+            string = string + base64[code]
+        return string
 
     def __repr__(self):
         return str(self.state)
