@@ -2,12 +2,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import config
 
 Base = declarative_base()
 
-import database.player
+import src.database.game
+import src.database.player
 
-engine = create_engine('sqlite:///go2.db', echo=True)
+engine = create_engine(config.database_uri, echo=True)
 
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine

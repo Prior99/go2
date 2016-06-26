@@ -1,4 +1,4 @@
-from go2.gamelogic.board import Board, Color
+from gamelogic.board import Board, Color
 import pytest
 
 @pytest.fixture

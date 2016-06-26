@@ -1,9 +1,9 @@
 from marshmallow import Schema, fields, post_load
 from enum import Enum
-from messages.create_game import MsgCreateGame
-from messages.register import MsgRegister
-from messages.subscribe_game import MsgSubscribeGame
-from messages.turn import MsgTurn
+from src.messages.create_game import MsgCreateGame
+from src.messages.register import MsgRegister
+from src.messages.subscribe_game import MsgSubscribeGame
+from src.messages.turn import MsgTurn
 
 class MessageType:
     CREATE_GAME = 'creategame'

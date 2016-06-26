@@ -1,4 +1,4 @@
-from go2.gamelogic.game import Game
+from src.gamelogic.game import Game
 
 class Room:
     def __init__(self, size, players):
