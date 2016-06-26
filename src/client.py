@@ -26,7 +26,7 @@ class Client(EventEmitter):
 
     async def create_game(self, msg):
         result = server.create_game(**msg)
-        for opponent in opponents:
+        for opponent in msg.opponents:
             result.players.append(server.get_player(opponent))
         await self.send(result.id)
 
