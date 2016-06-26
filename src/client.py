@@ -1,6 +1,7 @@
-from messages.message import MessageType, MessageSchema
+from src.messages.message import MessageType, MessageSchema
 from event_emitter import EventEmitter
 import json
+import src.server
 
 class Client(EventEmitter):
     def __init__(self, socket):
@@ -16,10 +17,18 @@ class Client(EventEmitter):
         print('Sending to ', self.socket.remote_address[0], ':', msg)
         await self.socket.send(msg + "\n")
 
-    async def register(self, register):
-        async def callback(result):
-            await self.send(result)
-        self.emit('register', **register, callback=callback)
+    async def register(self, msg):
+        result = server.add_player(**msg)
+        if result is None:
+            await self.send(False)
+        else:
+            self.send(result.id)
+
+    async def create_game(self, msg):
+        result = server.create_game(**msg)
+        for opponent in opponents:
+            result.players.append(server.get_player(opponent))
+        await self.send(result.id)
 
     async def loop(self):
         while not self.terminated:
@@ -27,6 +36,7 @@ class Client(EventEmitter):
                 data = await self.socket.recv()
                 message = MessageSchema().load(json.loads(data)).data
                 if message.type == MessageType.REGISTER: await self.register(message.data)
+                if message.type == MessageType.CREATE_GAME: await self.create_game(message.data)
             except:
                 raise
                 break
