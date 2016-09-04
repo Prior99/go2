@@ -17,4 +17,4 @@ stages:
 test:
   stage: test
   script:
-    py.test tests/
+    py.test --cov=src/ tests/

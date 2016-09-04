@@ -1,7 +1,9 @@
+coverage==4.2
 marshmallow==2.7.3
 py==1.4.31
 PyEventEmitter==1.0.3
 pytest==2.9.2
+pytest-cov==2.3.1
 pytest-sugar==0.7.1
 six==1.10.0
 SQLAlchemy==1.0.13
