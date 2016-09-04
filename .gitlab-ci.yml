@@ -1,8 +1,9 @@
-image: matthewgall/python-dev:latest
+image: python:3.5.2-alpine
 
 before_script:
-  - virtualenv venv
-  - source venv/bin/active
+  - pyvenv venv
+  - source ./venv/bin/activate
+  - python3 --version
   - pip install -U -r requirements.txt
 
 cache:
