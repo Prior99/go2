@@ -1,10 +1,18 @@
 # Go2
 
-### Development guide
+## Setup
+
+```
+user@machine:~/go2/$ virtualenv venv
+user@machine:~/go2/$ source venv/bin/active
+user@machine:~/go2/$ pip install -U -r requirements.txt
+```
+
+## Development guide
 
 The following paragraphs should help you getting started with developing.
 
-## Start the Server
+### Start the Server
 
 Run the following commands in the projects root directory to start the server:
 
@@ -13,7 +21,7 @@ user@machine:~/go2/$ source venv/bin/active
 user@machine:~/go2/$ python main.py
 ```
 
-## Execute the Tests
+### Execute the Tests
 
 The following commands will execute all unit tests:
 
