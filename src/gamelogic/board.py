@@ -26,6 +26,21 @@ class Board:
         new_board = deepcopy(original_board)
         return new_board
 
+    def from_encoded(string):
+        list = []
+        size = base64.index(string[0])
+        string = string[1:]
+        index = 0
+        for i in range(0, len(string)):
+            code = base64.index(string[i])
+            for j in range(3, 0, -1):
+                if index < size*size:
+                    list.append(Color((code >> (j - 1) * 2) & 3))
+                else:
+                    break
+                index = index + 1
+        return Board.from_list(list)
+
     def __eq__(self, other):
         return other.state == self.state
 
@@ -94,8 +109,7 @@ class Board:
         return Board.from_board(self)
 
     def encode(self):
-        string = ""
-        string = string + base64[self.size]
+        string = base64[self.size]
         for i in range(0, len(self.state), 3):
             code = 0
             for j in range(0, 3):

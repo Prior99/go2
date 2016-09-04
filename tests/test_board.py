@@ -36,3 +36,7 @@ def test_remove_tokens(mock_board):
 def test_encode(mock_board):
     board = mock_board
     assert board.encode() == 'FKiVpGlYqA'
+
+def test_decode(mock_board):
+    board = mock_board
+    assert Board.from_encoded('FKiVpGlYqA') == board
