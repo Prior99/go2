@@ -53,4 +53,4 @@ def stop_client(client):
     print('Currently', len(clients), 'clients connected')
 
 accept = websockets.serve(connected, config.host, config.port)
-print('Listening on 0.0.0.0:2338')
+print('Listening on ',config.host,':',config.port)
