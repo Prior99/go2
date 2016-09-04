@@ -1,5 +1,4 @@
 before_script:
-  - pacman -S --noconfirm virtualenv
   - virtualenv venv
   - source venv/bin/active
   - pip install -U -r requirements.txt
