@@ -1,0 +1,17 @@
+before_script:
+  - virtualenv venv
+  - source venv/bin/active
+  - pip install -U -r requirements.txt
+
+cache:
+  paths:
+    - venv/
+    - .cache/
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    py.test tests/
