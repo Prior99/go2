@@ -17,4 +17,4 @@ stages:
 test:
   stage: test
   script:
-    py.test --cov=src/ tests/
+    py.test --cov=server/ --cov=common/ --cov=client/ tests/
