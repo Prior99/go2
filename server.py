@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from src import server
+from server import server
 
 logger = logging.getLogger('websockets.server')
 logger.setLevel(logging.ERROR)

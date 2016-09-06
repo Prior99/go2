@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from src.database import Base
+from server.database import Base
 
 class PlayerGameAssoc(Base):
     __tablename__ = 'assoc_player_game',

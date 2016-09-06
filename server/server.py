@@ -1,5 +1,5 @@
 import websockets
-from server.client import Connection
+from server.connection import Connection
 from server.database import session
 from server.database.player import Player
 from common.gamelogic.board import Board
@@ -31,7 +31,7 @@ def add_player(name, secret):
         session.rollback()
         return None
 
-def validate_player(player_id, secret)
+def validate_player(player_id, secret):
     player = get_player(player_id)
     if not(player):
         return False
@@ -55,14 +55,13 @@ def create_game(size, opponents):
     except:
         return None
 
-def load_game(db_game) {
+def load_game(db_game):
     boards = list()
     for turn in db_game.turns:
         board = Board.from_encoded(turn.board)
         boards.append(board)
     game = Game.from_boards(boards)
     return game
-}
 
 def add_turn(db_game, board):
     if not(db_game):

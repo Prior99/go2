@@ -6,8 +6,8 @@ import config
 
 Base = declarative_base()
 
-import src.database.game
-import src.database.player
+import server.database.game
+import server.database.player
 
 engine = create_engine(config.database_uri, echo=True)
 
