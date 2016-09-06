@@ -1,8 +1,8 @@
-from src.messages.message import MessageType, MessageSchema
+from common.messages.message import MessageType, MessageSchema
 import json
-import src.server
+import server.server
 
-class Client:
+class Connection:
     def __init__(self, socket):
         super().__init__()
         self.socket = socket

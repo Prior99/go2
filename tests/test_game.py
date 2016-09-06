@@ -1,5 +1,5 @@
-from src.gamelogic.game import Game
-from src.gamelogic.board import Board, Color
+from common.gamelogic.game import Game
+from common.gamelogic.board import Board, Color
 import pytest
 
 N = Color.NEUTRAL

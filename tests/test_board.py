@@ -1,4 +1,4 @@
-from src.gamelogic.board import Board, Color
+from common.gamelogic.board import Board, Color
 import pytest
 
 @pytest.fixture

@@ -1,7 +1,9 @@
 import websockets
-from src.client import Client
-from src.database import session
-from src.database.player import Player
+from server.client import Connection
+from server.database import session
+from server.database.player import Player
+from common.gamelogic.board import Board
+from common.gamelogic.game import Game
 from sqlalchemy import exc
 import config
 
@@ -13,7 +15,7 @@ def close():
         stop_client(client)
 
 async def connected(websocket, path):
-    client = Client(websocket)
+    client = Connection(websocket)
     start_client(client)
     print('Currently', len(clients), 'clients connected')
     await client.loop()
