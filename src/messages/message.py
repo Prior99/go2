@@ -13,9 +13,10 @@ class MessageType:
     USERS = 'users'
 
 class Message:
-    def __init__(self, type, data=None):
+    def __init__(self, type, id, data=None):
         self.type = type
         self.data = data
+        self.id = id
 
 class MessageSchema(Schema):
     type = fields.Str()
@@ -24,6 +25,7 @@ class MessageSchema(Schema):
     @post_load
     def extract(self, data):
         type = data['type']
+        id = data['id']
         schema = (MsgCreateGame() if type == MessageType.CREATE_GAME \
             else MsgRegister() if type == MessageType.REGISTER \
             else MsgSubscribeGame() if type == MessageType.SUBSCRIBE_GAME \
@@ -31,5 +33,5 @@ class MessageSchema(Schema):
             else None)
         if not schema is None:
             payload = schema.load(data['payload'])
-            return Message(type, payload.data)
-        return Message(type)
+            return Message(type, id, payload.data)
+        return Message(type, id)

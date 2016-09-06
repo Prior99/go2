@@ -16,3 +16,4 @@ class Game(Base):
     players = relationship('Player',
         secondary='assoc_player_game',
         back_populates='games')
+    turns=relationship('Turn')

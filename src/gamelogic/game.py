@@ -28,6 +28,14 @@ class Game:
         else:
             self.current_color = Color.BLACK
 
+    def from_boards(boards):
+        length = len(boards)
+        if length < 1:
+            return None
+        game = Game(boards[0].size)
+        game.history = boards
+        game.current_color = Color(length % 2)
+
     def from_board(board):
         game = Game(board.size)
         game.history[0] = board
